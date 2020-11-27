@@ -1,1 +1,21 @@
-<p>assisted-query works!</p>
+<h1>Enter Assisted Query Below</h1>
+
+
+
+
+
+
+
+<p>{{values}}</p>
+
+<label for="query">Query:</label>
+  <input type="text" id="query" name="query" (keyup)="onKey($event)">
+    <br />
+    <img [src]="graph_1" />
+    <img [src]="graph_2" />
+    <img [src]="graph_3" />
+
+<ng-template [ngIf]="ifErupt">
+  <img src="https://graph-demo.azurewebsites.net/graph_query?query=How%20is%20P126%E2%80%99s%20eruption%20rate%20compared%20to%20normal%20cases?" />
+</ng-template>
+
