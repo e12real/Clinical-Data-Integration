@@ -13,6 +13,10 @@ import { AssistedQueryComponent } from './assisted-query/assisted-query.componen
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
+import { UploadDataComponent } from './upload-data/upload-data.component';
+//import { TagComponent } from './tag/tag.component';
+//import { TagsComponent } from './tags/tags.component';
+//import { SuggestionComponent } from './suggestion/suggestion.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,11 @@ import { HomeComponent } from './home/home.component';
     AssistedQueryComponent,
     AboutComponent,
     ContactComponent,
-    HomeComponent
+    HomeComponent,
+    UploadDataComponent
+    //TagComponent,
+    //TagsComponent,
+    //SuggestionComponent
   ],
   imports: [
     BrowserModule,

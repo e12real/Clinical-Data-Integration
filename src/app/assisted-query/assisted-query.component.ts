@@ -17,6 +17,10 @@ export class AssistedQueryComponent implements OnInit {
   formGroup: FormGroup;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
+  images: string[] = [];
+
+  getimageurl: string = "http://sdpimageapi.azurewebsites.net/file/";
+
   createChart() {
     this.dataService.getGraphData().pipe(takeUntil(this.destroy$)).subscribe(
       (data: any) => {
@@ -24,30 +28,50 @@ export class AssistedQueryComponent implements OnInit {
       }
     );
   }
-  hello
-  //onSubmit(formData: { [x: string]: any }) {
-    // this.http
-    //   .get("http://localhost:5000/graph", {
-    //     params: {
-    //       query: formData["query"]
-    //     }
-    //   })
-    //   .subscribe(data => {
-    //     let spec = data[0];
-    //     console.log(spec);
-    //     embed("#vis", spec, { actions: false });
-    //   });
-  //}
+
+  findImages() {
+    this.dataService.getFindImages().pipe(takeUntil(this.destroy$)).subscribe(
+      (data: any) => {
+        console.log(data)
+      }
+    );
+  }
+  sendImages() {
+    
+    this.dataService.sendFindImages().pipe(takeUntil(this.destroy$)).subscribe(
+      (data: any) => {
+        console.log(data)
+        for(var i = 0; i < data.length; i++) {
+          this.images.push(data[i])
+        }
+      }
+    );
+  }
+  //hello
+
+  onSubmit(formData: { [x: string]: any }) {
+    this.http
+      .get("http://localhost:5000/graph", {
+        params: {
+          query: formData["query"]
+        }
+      })
+      .subscribe(data => {
+        let spec = data[0];
+        console.log(spec);
+        embed("#vis", spec, { actions: false });
+      });
+  }
 
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder, private dataService: DataService) {
     this.formGroup = this.formBuilder.group({
       query: ""
-    });
+      });
   }
 
   ngOnInit() {
-    this.createChart();
+    this.sendImages;
   }
 
   ngOnDestroy() {
@@ -61,33 +85,33 @@ export class AssistedQueryComponent implements OnInit {
 
 
 // values = ""
-  // ifErupt = false
+//   ifErupt = false
 
-  // input_val = "";
-  // graph_1 = "";
-  // graph_2 = "";
-  // graph_3 = "";
+//   input_val = "";
+//   graph_1 = "";
+//   graph_2 = "";
+//   graph_3 = "";
 
-  // onKey(event: any) {
-  //   this.input_val = event.target.value;
-  //   if (this.input_val.includes("eruption")) {
-  //     this.graph_1 =
-  //       "https://graph-demo.azurewebsites.net/graph_query?query=eruption";
-  //     this.graph_2 = "";
-  //     this.graph_3 = "";
-  //   } else if (this.input_val.includes("caries")) {
-  //     this.graph_2 =
-  //       "https://graph-demo.azurewebsites.net/graph_query?query=caries";
-  //     this.graph_1 = "";
-  //     this.graph_3 = "";
-  //   } else if (this.input_val.includes("oral")) {
-  //     this.graph_3 =
-  //       "https://graph-demo.azurewebsites.net/graph_query?query=oral";
-  //     this.graph_1 = "";
-  //     this.graph_2 = "";
-  //   } else {
-  //     this.graph_1 = "";
-  //     this.graph_2 = "";
-  //     this.graph_3 = "";
-  //   }
-  // }
+//   onKey(event: any) {
+//     this.input_val = event.target.value;
+//     if (this.input_val.includes("eruption")) {
+//       this.graph_1 =
+//         "https://graph-demo.azurewebsites.net/graph_query?query=eruption";
+//       this.graph_2 = "";
+//       this.graph_3 = "";
+//     } else if (this.input_val.includes("caries")) {
+//       this.graph_2 =
+//         "https://graph-demo.azurewebsites.net/graph_query?query=caries";
+//       this.graph_1 = "";
+//       this.graph_3 = "";
+//     } else if (this.input_val.includes("oral")) {
+//       this.graph_3 =
+//         "https://graph-demo.azurewebsites.net/graph_query?query=oral";
+//       this.graph_1 = "";
+//       this.graph_2 = "";
+//     } else {
+//       this.graph_1 = "";
+//       this.graph_2 = "";
+//       this.graph_3 = "";
+//     }
+//   }

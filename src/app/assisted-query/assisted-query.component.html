@@ -1,14 +1,10 @@
-<!-- <h1>Enter Assisted Query Below</h1>
+<!-- <h1>Enter Assisted Query Below</h1> -->
 
 
 
+<!-- <p>{{values}}</p> -->
 
-
-
-
-<p>{{values}}</p>
-
-<label for="query">Query:</label>
+<!-- <label for="query">Query:</label>
   <input type="text" id="query" name="query" (keyup)="onKey($event)">
     <br />
     <img [src]="graph_1" />
@@ -17,13 +13,17 @@
 
 <ng-template [ngIf]="ifErupt">
   <img src="https://graph-demo.azurewebsites.net/graph_query?query=How%20is%20P126%E2%80%99s%20eruption%20rate%20compared%20to%20normal%20cases?" />
-</ng-template>
- -->
+</ng-template> -->
 
+
+
+
+<!-- (ngSubmit)="onSubmit(formGroup.value)" -->
 
  <!-- <div #graph></div> -->
-
- <h1 class = "row justify-content-center">Enter Search Below:</h1>
+ <div class="jumbotron text-center">
+ 	<h1 class = "row justify-content-center">Enter Query Below:</h1>
+ 
 
 <div class="container mt-5">
 	<div class="row justify-content-center">
@@ -43,7 +43,7 @@
               formControlName="query" spellcheck="false">
           </div>
 						<div class="col-auto">
-							<button class="btn btn-lg btn-success" type="submit">Search</button>
+							<button class="btn btn-lg btn-success" type="submit" ng-model="activate" ng-init="activate = true" (click) = "sendImages()">Search</button>
 						</div>
 					</div>
 			</form>
@@ -53,4 +53,31 @@
 	<div class="row justify-content-center">
 		<div class="border rounded m-4" id="vis"></div>
 	</div>
+</div>
+</div>
+
+
+
+<h2  class = "row justify-content-center" ng-if="activate">Results:</h2>
+<div class="container mt-5">
+	<div class="row justify-content-center">
+		<table class="styled-table" *ngIf="activate">
+			<thead>
+				<tr>
+					<th>Query</th>
+					<th>Result</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Percentage of patients who have more than 5 cavities</td>
+					<td>15.6%</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div *ngFor = "let image of images">
+	<img [src] = "getimageurl + image" style = "width: 40%"/>	
 </div>
