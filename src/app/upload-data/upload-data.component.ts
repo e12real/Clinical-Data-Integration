@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Tag } from "../tag";
+import { Component, OnInit, OnDestroy} from '@angular/core';
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
+import { Tag } from "../tag";
+import embed from "vega-embed";
+import { DataService } from '../shared/data.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-upload-data',
@@ -13,6 +18,25 @@ export class UploadDataComponent implements OnInit {
   imageURL: string;
 
   constructor(private http: HttpClient) {}
+
+  formGroup: FormGroup;
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
+  activate: boolean = false;
+
+  str: string = "";
+
+  sendToken() {
+    
+    this.dataService.sendTokenization().pipe(takeUntil(this.destroy$)).subscribe(
+      (data: any) => {
+        console.log(data)
+        this.str = JSON.stringify(data)
+      }
+    );
+  }
+
+  constructor(private dataService: DataService) { }
 
   onFileChanged(event) {
     this.selectedFile = <File>event.target.files[0];

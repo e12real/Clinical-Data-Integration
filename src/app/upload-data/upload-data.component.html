@@ -16,4 +16,13 @@
     (tagRemoved)="onTagRemoved($event)"
   >
   </app-tags>
+
+<form action="http://sdp2.cse.uconn.edu:8080/process" method = "post">
+  <label for="fname">Enter Data:</label> <br><br>
+  <textarea cols = "50" rows = "10"></textarea> <br><br>
+  <input type="submit" value="Submit" (click) = "sendToken(); activate = !activate">
+</form>
+
+<div *ngIf="activate">
+  {{str}}
 </div>

@@ -17,6 +17,8 @@ export class AssistedQueryComponent implements OnInit {
   formGroup: FormGroup;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
+  activate: boolean = false;
+
   images: string[] = [];
 
   getimageurl: string = "http://sdpimageapi.azurewebsites.net/file/";
@@ -47,7 +49,7 @@ export class AssistedQueryComponent implements OnInit {
       }
     );
   }
-  //hello
+  hello
 
   onSubmit(formData: { [x: string]: any }) {
     this.http
