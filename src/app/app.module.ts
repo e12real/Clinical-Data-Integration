@@ -14,9 +14,12 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
 import { UploadDataComponent } from './upload-data/upload-data.component';
-//import { TagComponent } from './tag/tag.component';
-//import { TagsComponent } from './tags/tags.component';
-//import { SuggestionComponent } from './suggestion/suggestion.component';
+import { TagComponent } from './tag/tag.component';
+import { TagsComponent } from './tags/tags.component';
+import { SuggestionComponent } from './suggestion/suggestion.component';
+import { TagService } from "./tag.service";
+import { TagFilterPipe } from "./tag-filter.pipe";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -29,9 +32,10 @@ import { UploadDataComponent } from './upload-data/upload-data.component';
     ContactComponent,
     HomeComponent,
     UploadDataComponent
-    //TagComponent,
-    //TagsComponent,
-    //SuggestionComponent
+    TagComponent,
+    TagsComponent,
+    TagFilterPipe,
+    SuggestionComponent
   ],
   imports: [
     BrowserModule,
@@ -39,8 +43,9 @@ import { UploadDataComponent } from './upload-data/upload-data.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [TagService],
   bootstrap: [
     AppComponent,
     LoginComponent
