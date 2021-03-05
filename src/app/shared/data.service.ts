@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
@@ -12,7 +12,7 @@ export class DataService {
 
   readonly RPKI_API_M = 'https://sdpimageapi.azurewebsites.net/';
 
-  readonly RPKI_API_J = '137.99.26.2:8080';
+  readonly RPKI_API_J = 'http://sdp2.cse.uconn.edu:8080';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -56,6 +56,16 @@ export class DataService {
   public getTokenization() {
     const graphEndpoint = this.RPKI_API_J + '/process';
     return this.httpClient.get(graphEndpoint).pipe(retry(3), catchError(this.handleError));
+  }
+
+  public sendTokenization() {
+    const headers = new HttpHeaders();
+    headers.set('Content-Type', 'application/json; charset=utf-8');
+    const graphEndpoint = this.RPKI_API_J + '/process';
+    return this.httpClient.post(graphEndpoint, {
+      "PID": "P88", 
+      "Comments":"I prescribed 3 doses of Advil to John because of severe pain. He should take 1 capsule every 3 days"
+    }).pipe(retry(3), catchError(this.handleError));
   }
 
   public getQuery() {
