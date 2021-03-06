@@ -14,10 +14,10 @@ import { Subject } from 'rxjs';
 })
 export class UploadDataComponent implements OnInit {
   selectedFile: File = null;
-  public tags: Tag[];
   imageURL: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private dataService: DataService) {}
+  ngOnInit() {}
 
   formGroup: FormGroup;
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -35,8 +35,6 @@ export class UploadDataComponent implements OnInit {
       }
     );
   }
-
-  constructor(private dataService: DataService) { }
 
   onFileChanged(event) {
     this.selectedFile = <File>event.target.files[0];
@@ -59,7 +57,7 @@ export class UploadDataComponent implements OnInit {
 
     this.http
       .post("http://127.0.0.1:5000/classify", uploadData)
-      .subscribe(data => {
+      .subscribe((data: string[]) => {
         console.log(data); // handle event here
         for (var i = 0; i < data.length; i++) {
           let classification = {} as Tag;

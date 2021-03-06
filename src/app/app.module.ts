@@ -30,7 +30,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     AboutComponent,
     ContactComponent,
     HomeComponent,
-    UploadDataComponent
+    UploadDataComponent,
     TagComponent,
     TagsComponent,
     TagFilterPipe,
