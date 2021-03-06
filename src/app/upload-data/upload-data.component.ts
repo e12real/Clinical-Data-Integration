@@ -38,11 +38,6 @@ export class UploadDataComponent implements OnInit {
 
   onFileChanged(event) {
     this.selectedFile = <File>event.target.files[0];
-  }
-
-  onUpload() {
-    const uploadData = new FormData();
-    uploadData.append("image", this.selectedFile, this.selectedFile.name);
 
     // File Preview
     const reader = new FileReader();
@@ -50,6 +45,11 @@ export class UploadDataComponent implements OnInit {
       this.imageURL = reader.result as string;
     };
     reader.readAsDataURL(this.selectedFile);
+  }
+
+  onUpload() {
+    const uploadData = new FormData();
+    uploadData.append("image", this.selectedFile, this.selectedFile.name);
 
     this.tags.push({ name: "Angular", backgroundColor: "#868E96", color: "#FFFFFF" });
 

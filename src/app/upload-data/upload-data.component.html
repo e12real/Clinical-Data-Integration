@@ -1,31 +1,113 @@
-<div *ngIf="!(tags.length > 0)">
-  <h3>Medical Image Classifier</h3>
-  <input type="file" (change)="onFileChanged($event)" #fileInput />
-  <button (click)="onUpload()">Submit</button>
-</div>
+<div class="container-lg mt-5">
 
-<div *ngIf="tags.length > 0">
-  <h3>Image</h3>
-  <img style="width:40%" [src]="imageURL" [alt]="selectedFile.name" />
+  <div class="container-lg m-5" style="background:#F9F9F9">
+    <h3 class="text-center p-3">Patient Information</h3>
+    <form class="needs-validation" novalidate>
+      <div class="form-row">
+        <div class="col-md-4 mb-3">
+          <label for="validationCustom01">First name</label>
+          <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="validationCustom02">Last name</label>
+          <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required>
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="validationCustomUsername">Patient ID</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroupPrepend">@</span>
+            </div>
+            <input type="text" class="form-control" id="validationCustomUsername" placeholder="Patient ID" aria-describedby="inputGroupPrepend" required>
+            <div class="invalid-feedback">
+              Please choose a username.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <label for="validationCustom03">City</label>
+          <input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
+          <div class="invalid-feedback">
+            Please provide a valid city.
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="validationCustom04">State</label>
+          <input type="text" class="form-control" id="validationCustom04" placeholder="State" required>
+          <div class="invalid-feedback">
+            Please provide a valid state.
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="validationCustom05">Zip</label>
+          <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
+          <div class="invalid-feedback">
+            Please provide a valid zip.
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary mb-3" type="submit">Submit form</button>
+    </form>
+  </div>
 
-  <h3>Tags</h3>
-  <app-tags
-    [tags]="tags"
-    [suggestions]="suggestions"
-    (tagAdded)="onTagAdded($event)"
-    (tagRemoved)="onTagRemoved($event)"
-  >
-  </app-tags>
-</div>
+  <div class="container-lg m-5" style="background:#F9F9F9">
+    <h3 class="text-center p-3">Medical Image Upload</h3>
+    <div class="row pb-3" *ngIf="!selectedFile">
+      <div class="col text-left">
+        <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput />
+        <button class="btn btn-info" (click)="fileInput.click()">Select Image</button>
+      </div>
+    </div>
 
-<br>
+    <div *ngIf="selectedFile">
+      <div class="col text-center p-3">
+        <img style="width:30%" [src]="imageURL" [alt]="selectedFile.name" />
+      </div>
 
-<form action="http://sdp2.cse.uconn.edu:8080/process" method = "post">
-  <label for="fname">Enter Data:</label> <br><br>
-  <textarea cols = "50" rows = "10"></textarea> <br><br>
-  <input type="submit" value="Submit" (click) = "sendToken(); activate = !activate">
-</form>
+      <div class="col text-center">
+        <span class="px-1">
+          <button class="btn btn-primary px-2" (click)="onUpload()">Analyze Image</button>
+        </span>
+        <span class="px-1">
+          <button class="btn btn-info px-2" (click)="selectedFile = null; tags = null">Clear Image</button>
+        </span>
+      </div>
 
-<div *ngIf="activate">
-  {{str}}
+      <h4 class="text-left mt-3 p-1">Image Descriptors and Tags</h4>
+      <app-tags
+        [tags]="tags"
+        [suggestions]="suggestions"
+        (tagAdded)="onTagAdded($event)"
+        (tagRemoved)="onTagRemoved($event)"
+      >
+      </app-tags>
+    </div>
+
+  </div>
+
+  <div class="container-lg m-5" style="background:#F9F9F9">
+
+    <h3 class="text-center p-3">Clinical Data</h3>
+    <form action="http://sdp2.cse.uconn.edu:8080/process" method = "post">
+      <div class="form-group">
+        <label for="fname">Enter Data:</label>
+        <textarea class="form-control" rows="10"></textarea>
+        <input style="display: none" type="submit" value="Submit" (click) = "sendToken(); activate = !activate" #dataInput />
+        <button class="btn btn-info m-3" (click)="dataInput.click()">Submit</button>
+      </div>
+    </form>
+
+    <div *ngIf="activate">
+      {{str}}
+    </div>
+  </div>
+
 </div>
