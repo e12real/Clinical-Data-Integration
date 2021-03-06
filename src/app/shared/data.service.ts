@@ -29,17 +29,18 @@ export class DataService {
     return throwError(errorMessage);
   }
 
-  public getFindImages() {
-    const graphEndpoint = this.RPKI_API_M + 'findimages';
-    return this.httpClient.get(graphEndpoint).pipe(retry(3), catchError(this.handleError));
-  }
-  //http://sdpimageapi.azurewebsites.net/file/ + image name from the webservice.
-
-  public sendFindImages() {
+  public getImages() {
     const graphEndpoint = this.RPKI_API_M + 'findimages';
     return this.httpClient.post(graphEndpoint, {
       "pid":  "",
       "tags":  "x-ray"
+      }).pipe(retry(3), catchError(this.handleError));
+  }
+
+  public getNLImageQuery(formData: { [x: string]: any }) {
+    const endpoint = this.RPKI_API_M + 'processquery';
+    return this.httpClient.post(endpoint, {
+      query: formData["query"]
       }).pipe(retry(3), catchError(this.handleError));
   }
 

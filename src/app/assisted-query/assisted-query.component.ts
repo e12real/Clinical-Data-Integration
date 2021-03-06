@@ -31,17 +31,11 @@ export class AssistedQueryComponent implements OnInit {
     );
   }
 
-  findImages() {
-    this.dataService.getFindImages().pipe(takeUntil(this.destroy$)).subscribe(
-      (data: any) => {
-        console.log(data)
-      }
-    );
-  }
-  sendImages() {
+  findImages(formData: { [x: string]: any }) {
     
-    this.dataService.sendFindImages().pipe(takeUntil(this.destroy$)).subscribe(
+    this.dataService.getNLImageQuery(formData).pipe(takeUntil(this.destroy$)).subscribe(
       (data: any) => {
+        this.images = [];
         console.log(data)
         for(var i = 0; i < data.length; i++) {
           this.images.push(data[i])
@@ -49,7 +43,6 @@ export class AssistedQueryComponent implements OnInit {
       }
     );
   }
-  hello
 
   onSubmit(formData: { [x: string]: any }) {
     this.http
@@ -73,7 +66,6 @@ export class AssistedQueryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sendImages;
   }
 
   ngOnDestroy() {
