@@ -99,14 +99,14 @@
     <form action="http://sdp2.cse.uconn.edu:8080/process" method = "post">
       <div class="form-group">
         <label for="fname">Enter Data:</label>
-        <textarea class="form-control" rows="10"></textarea>
-        <input style="display: none" type="submit" value="Submit" (click) = "sendToken(); activate = !activate" #dataInput />
+        <input type = "text" class="form-control" rows="10" #commentSection/>
+        <input style="display: none" type="submit" value="Submit" (click) = "sendToken(commentSection.value); activate = !activate" #dataInput />
         <button class="btn btn-info m-3" (click)="dataInput.click()">Submit</button>
       </div>
     </form>
 
     <div *ngIf="activate">
-      {{str}}
+      {{commentSection.value}}
     </div>
   </div>
 

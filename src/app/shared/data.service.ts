@@ -14,6 +14,8 @@ export class DataService {
 
   readonly RPKI_API_J = 'http://sdp2.cse.uconn.edu:8080';
 
+  //readonly RPKI_API_P = '';
+
   constructor(private httpClient: HttpClient) { }
 
   handleError(error: HttpErrorResponse) {
@@ -59,13 +61,13 @@ export class DataService {
     return this.httpClient.get(graphEndpoint).pipe(retry(3), catchError(this.handleError));
   }
 
-  public sendTokenization() {
+  public sendTokenization(comment: string) {
     const headers = new HttpHeaders();
     headers.set('Content-Type', 'application/json; charset=utf-8');
     const graphEndpoint = this.RPKI_API_J + '/process';
     return this.httpClient.post(graphEndpoint, {
       "PID": "P88", 
-      "Comments":"I prescribed 3 doses of Advil to John because of severe pain. He should take 1 capsule every 3 days"
+      "Comments": comment
     }).pipe(retry(3), catchError(this.handleError));
   }
 
