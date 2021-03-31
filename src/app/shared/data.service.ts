@@ -12,7 +12,8 @@ export class DataService {
 
   readonly RPKI_API_M = 'https://sdpimageapi.azurewebsites.net/';
 
-  readonly RPKI_API_J = 'http://sdp2.cse.uconn.edu:8080';
+  readonly RPKI_API_J = 'https://sdp2.cse.uconn.edu:8080';
+  
 
   //readonly RPKI_API_P = '';
 
@@ -61,19 +62,43 @@ export class DataService {
     return this.httpClient.get(graphEndpoint).pipe(retry(3), catchError(this.handleError));
   }
 
-  public sendTokenization(comment: string) {
+  public sendTokenization(pid: string, comment: string) {
     const headers = new HttpHeaders();
     headers.set('Content-Type', 'application/json; charset=utf-8');
     const graphEndpoint = this.RPKI_API_J + '/process';
     return this.httpClient.post(graphEndpoint, {
-      "PID": "P88", 
+      "PID": pid, 
       "Comments": comment
     }).pipe(retry(3), catchError(this.handleError));
+  }
+  public sendAssisted(query){
+    const headers = new HttpHeaders();
+    headers.set('Content-Type', 'application/json; charset=utf-8');
+    const graphEndpoint =  'https:sdp2.cse.uconn.edu:8080/assisted-query';
+    
+    return this.httpClient.post(graphEndpoint, {
+      "NLQuery": query
+    }, {responseType: 'json'}).pipe(retry(1), catchError(this.handleError));
   }
 
   public getQuery() {
     const graphEndpoint = this.RPKI_API_J + '/processQuery';
     return this.httpClient.get(graphEndpoint).pipe(retry(3), catchError(this.handleError));
+  }
+
+  public sendPatientCreation(fname: string, lname: string, pid: string, DOB: string, phone : string, ssn4: string){
+    const headers = new HttpHeaders();
+    headers.set('Content-Type', 'application/json; charset=utf-8');
+    const graphEndpoint =  'https:sdp2.cse.uconn.edu:8080/add-patient';
+    return this.httpClient.post(graphEndpoint, {
+      "Fname": fname, 
+      "Lname": lname,
+      "PID": pid,
+      "DOB": DOB,
+      "Phone": phone,
+      "ssn4": ssn4,
+
+    }).pipe(retry(3), catchError(this.handleError));
   }
 
 }
