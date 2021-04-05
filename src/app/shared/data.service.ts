@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+//import {NavListComponent} from "c:/Users/erich/seniorDesign/src/app/nav-list/nav-list.component"
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,11 @@ export class DataService {
   readonly RPKI_API_M = 'https://sdpimageapi.azurewebsites.net/';
 
   readonly RPKI_API_J = 'http://sdp2.cse.uconn.edu:8080';
+
+  validEmails: string[] = ["eric.hilhorst@uconn.edu"];
+  validPasswords: string[] = ["test"];
+  permission: boolean = false;
+  activate: boolean = false;
 
   //readonly RPKI_API_P = '';
 
@@ -39,10 +45,11 @@ export class DataService {
       }).pipe(retry(3), catchError(this.handleError));
   }
 
-  public getNLImageQuery(formData: { [x: string]: any }) {
+  public getNLImageQuery(query: string) {
     const endpoint = this.RPKI_API_M + 'processquery';
     return this.httpClient.post(endpoint, {
-      query: formData["query"]
+      //query: formData["query"]
+      query
       }).pipe(retry(3), catchError(this.handleError));
   }
 
@@ -74,6 +81,23 @@ export class DataService {
   public getQuery() {
     const graphEndpoint = this.RPKI_API_J + '/processQuery';
     return this.httpClient.get(graphEndpoint).pipe(retry(3), catchError(this.handleError));
+  }
+
+  validate(email: string, password: string) {
+    console.log(this.validEmails.includes(email))
+    console.log(this.validPasswords.includes(password))
+    if(this.validEmails.includes(email) && this.validPasswords.includes(password)) {
+      this.permission = true;
+      //this.navList.updatePermission();
+      console.log(this.permission);
+    }
+    else {
+      this.activate = true;
+    }
+  }
+
+  public getPermission() : boolean{
+    return this.permission;
   }
 
 }

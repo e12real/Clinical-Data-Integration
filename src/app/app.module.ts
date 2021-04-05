@@ -44,7 +44,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
-  providers: [TagService],
+  providers: [TagService, NavListComponent],
   bootstrap: [
     AppComponent,
     LoginComponent
