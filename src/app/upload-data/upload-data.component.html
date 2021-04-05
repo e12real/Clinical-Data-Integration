@@ -1,62 +1,6 @@
 <div class="container-lg mt-5">
 
-  <div class="container-lg m-5" style="background:#F9F9F9">
-    <h3 class="text-center p-3">Patient Information</h3>
-    <form class="needs-validation" novalidate>
-      <div class="form-row">
-        <div class="col-md-4 mb-3">
-          <label for="validationCustom01">First name</label>
-          <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
-          <div class="valid-feedback">
-            Looks good!
-          </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="validationCustom02">Last name</label>
-          <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required>
-          <div class="valid-feedback">
-            Looks good!
-          </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="validationCustomUsername">Patient ID</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroupPrepend">@</span>
-            </div>
-            <input type="text" class="form-control" id="validationCustomUsername" placeholder="Patient ID" aria-describedby="inputGroupPrepend" required>
-            <div class="invalid-feedback">
-              Please choose a username.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col-md-6 mb-3">
-          <label for="validationCustom03">City</label>
-          <input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
-          <div class="invalid-feedback">
-            Please provide a valid city.
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="validationCustom04">State</label>
-          <input type="text" class="form-control" id="validationCustom04" placeholder="State" required>
-          <div class="invalid-feedback">
-            Please provide a valid state.
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="validationCustom05">Zip</label>
-          <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
-          <div class="invalid-feedback">
-            Please provide a valid zip.
-          </div>
-        </div>
-      </div>
-      <button class="btn btn-primary mb-3" type="submit">Submit form</button>
-    </form>
-  </div>
+ 
 
   <div class="container-lg m-5" style="background:#F9F9F9">
     <h3 class="text-center p-3">Medical Image Upload</h3>
@@ -95,12 +39,13 @@
 
   <div class="container-lg m-5" style="background:#F9F9F9">
 
-    <h3 class="text-center p-3">Clinical Data</h3>
+    <h3 class="text-center p-3">Clinical Free Text Analysis</h3>
     <form action="http://sdp2.cse.uconn.edu:8080/process" method = "post">
       <div class="form-group">
         <label for="fname">Enter Data:</label>
-        <input type = "text" class="form-control" rows="10" #commentSection/>
-        <input style="display: none" type="submit" value="Submit" (click) = "sendToken(commentSection.value); activate = !activate" #dataInput />
+        <input type= "text" class = "form-control" rows = "4" placeholder="PID" #pidVal />
+        <textarea type = "text" class="form-control" rows="10" placeholder="Free Text to Analyze" #commentSection></textarea>
+        <input style="display: none" type="submit" value="Submit" (click) = "sendToken(pidVal.value, commentSection.value); activate = !activate" #dataInput />
         <button class="btn btn-info m-3" (click)="dataInput.click()">Submit</button>
       </div>
     </form>

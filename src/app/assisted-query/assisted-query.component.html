@@ -15,35 +15,40 @@
   <img src="https://graph-demo.azurewebsites.net/graph_query?query=How%20is%20P126%E2%80%99s%20eruption%20rate%20compared%20to%20normal%20cases?" />
 </ng-template> -->
 
-
+<head>
+    <link rel="stylesheet" 
+          href=
+"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 
 
 <!-- (ngSubmit)="onSubmit(formGroup.value)" -->
 
  <!-- <div #graph></div> -->
  <div class="jumbotron text-center">
- 	<h1 class = "row justify-content-center">Enter Query Below:</h1>
+ 	<h1 class = "row justify-content-center">SmartQuery Engine</h1>
  
 
 <div class="container mt-5">
 	<div class="row justify-content-center">
 
 		<div class="col-12 col-md-10 col-lg-8">
-			<form class="card card-sm" [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)"
+			<form class="card card-sm" [formGroup]="formGroup" (ngSubmit)="onSubmitAssisted(formGroup.value); findImages(formGroup.value)"
 				autocomplete="off">
 				<!------------------------- Disable Autocomplete -------------------------->
 				<input autocomplete="false" name="hidden" type="text" style="display:none;">
 				<!------------------------------------------------------------------------->
 				<div class="card-body row no-gutters align-items-center">
 					<div class="col-auto">
-						<i class="fas fa-search h4 text-body"></i>
+						<i class="fas fa-search"></i>
 					</div>
 					<div class="col">
-						<input class="form-control form-control-lg form-control-borderless" type="text" id="query"
+						<input class="form-control form-control-lg form-control-borderless" type="text" id="query" placeholder="Enter any statistcal query"
               formControlName="query" spellcheck="false">
           </div>
 						<div class="col-auto">
-							<button class="btn btn-lg btn-success" type="submit" (click) = "findImages(formGroup.value); activate = true">Search</button>
+							<button class="btn btn-lg btn-success" type="submit" (click) = "activate = true; " style="background-color: #22a0e9;" >Search</button>
+							<!--<button class="btn btn-lg btn-success" type="submit" (click) = "findImages(formGroup.value); activate = true">Search</button> -->
 						</div>
 					</div>
 			</form>
@@ -54,7 +59,11 @@
 </div>
 
 
-<div *ngIf="activate" class="container-lg m-3" style="background:#F9F9F9">
+<!--
+<div *ngIf="activate" class="container-lg m-5" style="background:#F9F9F9">
+
+
+
     <h3 class="text-left pt-3">Query Result:</h3>
 	<p class="text-left pb-1">Tables related to your search:</p>
 	<div class="container">
@@ -77,15 +86,29 @@
 	</div>
 </div>
 
-<div *ngIf="activate" class="container-sm m-3" style="background:#F9F9F9">
-    <h3 class="text-left pt-3">Associated Chart:</h3>
-	<p class="text-left pb-1">Charts we calculated that may be related to your search:</p>
-	<div class="row justify-content-center">
-		<div class="border rounded m-4" id="vis"></div>
+-->
+<ng-container *ngIf = "activate" >
+<div *ngIf="activate" class="container-lg m-5 fade-in" style="background:#F9F9F9">
+    <h3 class="text-left pt-3">Associated Records:</h3>
+	<p class="text-left pb-1">Data that may be related to your search:</p>
+	<div  *ngIf="response_table[0]!='NONE'" class="row justify-content-center">
+		<table  id="sql_response">
+			<tr>
+				<th *ngFor = "let header of response_table[0]?.split('| ')">{{header}}</th>
+			</tr>
+			<tr *ngFor = "let row of response_table | slice:1">
+				<td *ngFor = "let element of row.split('|', response_table[0]?.split('| ').length)">{{element}}</td>
+			</tr>
+			
+		</table>
+
 	</div>
+	<h6 *ngIf="response_table[0]=='NONE'"> We found no data related to your query. Please try again.</h6> <br><br>
 </div>
 
-<div *ngIf="images.length > 0" class="container-lg m-3" style="background:#F9F9F9">
+</ng-container>
+<div *ngIf="images.length > 0" class="container-lg m-5" style="background:#F9F9F9">
+
     <h3 class="text-left pt-3">Associated Images</h3>
 	<p class="text-left pb-1">Images we found associated to your search:</p>
 	<div class="row">
@@ -128,4 +151,38 @@
 	</div>
 
   </div>
+<ng-container *ngIf="response_table[0]!='NONE' && response_table.length > 0 && activate" style="margin-left: 10%">
+  <h4  style="margin-left: 2%">Relevant Categories:</h4>
+  <div  class="data_source" *ngFor=" let header of response_table[0]?.split(' ')">{{header.replace("|", "")}}</div>
+</ng-container>
+  <div *ngIf="response_table[0]!='NONE' && response_table.length > 0 && activate" class="container mt-5">
+	<div class="row justify-content-center">
+
+		<div class="col-12 col-md-10 col-lg-8">
+			<form class="card card-sm" [formGroup]="formGroup2" (ngSubmit)="onSubmitAnalysis(formGroup2.value)"
+				autocomplete="off">
+				<!------------------------- Disable Autocomplete -------------------------->
+				<input autocomplete="false" name="hidden" type="text" style="display:none;">
+				<!------------------------------------------------------------------------->
+				<div class="card-body row no-gutters align-items-center">
+					<div class="col-auto">
+						<i class="fas fa-chart-pie"></i>
+					</div>
+					<div class="col">
+						<input class="form-control form-control-lg form-control-borderless" type="text" id="query2" placeholder="Enter any statistcal query"
+              formControlName="query2" spellcheck="false">
+          </div>
+						<div class="col-auto">
+							<button class="btn btn-lg btn-success" type="submit" (click) = "visualization = true;" >Search</button>
+							<!--<button class="btn btn-lg btn-success" type="submit" (click) = "findImages(formGroup.value); activate = true">Search</button> -->
+						</div>
+					</div>
+			</form>
+		</div>
+	</div>
+	<br>
+</div>
+
+<div *ngIf="visualization" id="vis"></div>
+
 

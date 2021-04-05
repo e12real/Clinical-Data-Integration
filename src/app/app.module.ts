@@ -19,6 +19,8 @@ import { SuggestionComponent } from './suggestion/suggestion.component';
 import { TagService } from "./tag.service";
 import { TagFilterPipe } from "./tag-filter.pipe";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { PatientProfileComponent } from './patient-profile/patient-profile.component';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     TagComponent,
     TagsComponent,
     TagFilterPipe,
-    SuggestionComponent
+    SuggestionComponent,
+    PatientProfileComponent,
   ],
   imports: [
     BrowserModule,

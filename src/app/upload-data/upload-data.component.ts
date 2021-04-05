@@ -26,9 +26,9 @@ export class UploadDataComponent implements OnInit {
 
   str: string = "";
 
-  sendToken(comment: string) {
+  sendToken(pid: string, comment: string) {
     
-    this.dataService.sendTokenization(comment).pipe(takeUntil(this.destroy$)).subscribe(
+    this.dataService.sendTokenization(pid, comment).pipe(takeUntil(this.destroy$)).subscribe(
       (data: any) => {
         console.log(data)
         this.str = JSON.stringify(data)
