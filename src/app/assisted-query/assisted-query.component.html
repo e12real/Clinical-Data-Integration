@@ -58,8 +58,12 @@
 </div>
 </div>
 
+
 <!--
 <div *ngIf="activate" class="container-lg m-5" style="background:#F9F9F9">
+
+
+
     <h3 class="text-left pt-3">Query Result:</h3>
 	<p class="text-left pb-1">Tables related to your search:</p>
 	<div class="container">
@@ -81,6 +85,7 @@
 		</div>
 	</div>
 </div>
+
 -->
 <ng-container *ngIf = "activate" >
 <div *ngIf="activate" class="container-lg m-5 fade-in" style="background:#F9F9F9">
@@ -96,11 +101,14 @@
 			</tr>
 			
 		</table>
+
 	</div>
 	<h6 *ngIf="response_table[0]=='NONE'"> We found no data related to your query. Please try again.</h6> <br><br>
 </div>
+
 </ng-container>
 <div *ngIf="images.length > 0" class="container-lg m-5" style="background:#F9F9F9">
+
     <h3 class="text-left pt-3">Associated Images</h3>
 	<p class="text-left pb-1">Images we found associated to your search:</p>
 	<div class="row">
