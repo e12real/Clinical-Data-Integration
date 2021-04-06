@@ -109,6 +109,7 @@ export class DataService {
 
   public getPermission() : boolean{
     return this.permission;
+  }
 
   public sendPatientCreation(fname: string, lname: string, pid: string, DOB: string, phone : string, ssn4: string){
     const headers = new HttpHeaders();
