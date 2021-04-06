@@ -47,7 +47,7 @@ import { PatientProfileComponent } from './patient-profile/patient-profile.compo
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
-  providers: [TagService],
+  providers: [TagService, NavListComponent],
   bootstrap: [
     AppComponent,
     LoginComponent
