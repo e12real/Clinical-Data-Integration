@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import embed from "vega-embed";
@@ -6,6 +6,7 @@ import { DataService } from '../shared/data.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
+import * as myGlobals from '../../globals';
 
 @Component({
   selector: 'app-assisted-query',
@@ -27,7 +28,7 @@ export class AssistedQueryComponent implements OnInit {
 
   getimageurl: string = "http://sdpimageapi.azurewebsites.net/file/";
   httpClient: any;
-  response_table: string[] = [];
+  response_table: string[] = this.dataService.response_table;
   vis_activate: boolean = false;
   sql_statement: string = "";
 
@@ -87,6 +88,10 @@ export class AssistedQueryComponent implements OnInit {
             var str: string = this.response_table[i];
             this.response_table[i] = (str).toString().replace(/,/g, " ")
           }
+          console.log(this.response_table[0]);
+          console.log(this.response_table.length);
+          console.log(this.activate);
+         
         }
       }
     );
@@ -114,6 +119,14 @@ export class AssistedQueryComponent implements OnInit {
   update2(query: string) {
     this.queries.push(query);
     this.latestQuery = query;
+  }
+
+  pinSearch(formData: { [x: string]: any }){
+    let stringToSave = formData["query"];
+    this.dataService.assisted_query_pre = stringToSave;
+    console.log(this.dataService.assisted_query_pre);
+    this.dataService.response_table = this.response_table;
+    
   }
 
   findImages2(query: string) {
@@ -144,7 +157,7 @@ export class AssistedQueryComponent implements OnInit {
   }
 
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder, private dataService: DataService, private renderer: Renderer2) {
+  constructor(private http: HttpClient, private formBuilder: FormBuilder, private dataService: DataService, private renderer: Renderer2, private e: ElementRef) {
     this.formGroup = this.formBuilder.group({
       query: ""
     });
@@ -164,6 +177,10 @@ export class AssistedQueryComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 3,
     };
+    if(this.dataService.response_table.length != 0){
+      this.activate = true;
+    }
+    
   }
 
   ngOnDestroy() {

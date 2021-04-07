@@ -15,12 +15,13 @@ export class DataService {
 
   readonly RPKI_API_J = 'https://sdp2.cse.uconn.edu:8080';
   
-
+  assisted_query_pre = "";
+  assisted_query_post = "";
   validEmails: string[] = ["eric.hilhorst@uconn.edu"];
   validPasswords: string[] = ["test"];
   permission: boolean = false;
   activate: boolean = false;
-
+  response_table: string[] = []
   //readonly RPKI_API_P = '';
 
   constructor(private httpClient: HttpClient) { }

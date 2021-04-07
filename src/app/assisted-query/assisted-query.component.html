@@ -19,9 +19,10 @@
 		<!------------------------------------------------------------------------->
 		<div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
 			<div class="input-group">
+				<button id="button-pin1" (click)="pinSearch(formGroup.value)"><i class="fas fa-thumbtack" id="pinned"></i></button>
 				<input type="text" placeholder="What're you searching for?" aria-describedby="button-addon1"
 					class="form-control border-0 bg-light form-control-lg" formControlName="query" id="query"
-					spellcheck="false">
+					spellcheck="false" value="hello!">
 				<div class="input-group-append">
 					<button id="button-addon1" type="submit" class="btn btn-link text-primary"
 						(click)="activate = true;"><i class="fa fa-search fa-lg"></i></button>
@@ -62,7 +63,7 @@
 	</div>
 </div>
 -->
-
+<!--
 <div *ngIf="activate" style="margin-left: 55%; width: 50%;">
 	<h3 class="text-left pt-3">Query History:</h3>
 	<p class="text-left pb-1">Click on a query to go back to a previous result:</p>
@@ -85,7 +86,7 @@
 		</div>
 	</div>
 </div>
-</div>
+-->
 
 
 <div *ngIf="response_table[0]!='NONE' && response_table.length > 0 && activate" class="wide-container">
@@ -103,6 +104,7 @@
 <br>
 
 <div *ngIf="response_table.length > 0" class="wide-container">
+	
 	<div class="card">
 		<div class="card-body">
 			<div class="d-flex justify-content-between">
@@ -139,7 +141,7 @@
 	</div>
 </div>
 
-
+<!--
 <div *ngIf="images.length > 0" class="container-lg m-3" style="background:#F9F9F9; width: 50%">
 
 <div *ngIf="images.length > 0" class="container-lg m-5" style="background:#F9F9F9">
@@ -187,8 +189,8 @@
 </div>
 
 <br>
-
-<div *ngIf="response_table[0]!='NONE' && response_table.length > 0 && activate" class="container">
+-->
+<div  *ngIf="response_table[0]!='NONE' && response_table.length > 0" class="container">
 	<!-- For demo purpose -->
 	<div class="row py-5">
 		<div class="col-lg-9 mx-auto text-white text-center">
