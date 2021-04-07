@@ -31,7 +31,6 @@ export class AssistedQueryComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
 
   showVisBox: boolean = false;
-  isThereAGraph: boolean = false;
 
   createChart() {
     this.dataService.getGraphData().pipe(takeUntil(this.destroy$)).subscribe(
@@ -71,7 +70,6 @@ export class AssistedQueryComponent implements OnInit {
     this.dataService.sendAssisted(formData["query"]).pipe(takeUntil(this.destroy$)).subscribe(
       (data: any) => {
         console.log(data['Data'])
-        this.isThereAGraph = false;
         if (data['Data'] == 'NONE') {
           this.response_table[0] = "NONE";
         }
@@ -100,10 +98,7 @@ export class AssistedQueryComponent implements OnInit {
       .subscribe(data => {
         let spec = data[0];
         if (spec != []) {
-          this.isThereAGraph = true;
           embed("#vis", spec, { actions: false });
-        } else {
-          this.isThereAGraph = false;
         }
       });
   }
@@ -125,7 +120,6 @@ export class AssistedQueryComponent implements OnInit {
           "orderable": false,
         },
       ],
-      order: [0, "desc"],
       pagingType: 'full_numbers',
       pageLength: 3,
     };

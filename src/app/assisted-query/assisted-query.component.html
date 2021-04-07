@@ -2,38 +2,35 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<div class="jumbotron text-center">
-	<h1 class="row justify-content-center">SmartQuery Engine</h1>
+<div class="container">
+	<!-- For demo purpose -->
+	<div class="row py-5">
+		<div class="col-lg-9 mx-auto text-white text-center">
+			<h1 class="display-4 text-dark">SmartQuery Engine</h1>
+			<p class="lead mb-0 text-dark">Natural Langauge to SQL Parser</p>
+		</div>
+	</div>
+	<!-- End -->
 
-
-	<div class="container mt-5">
-		<div class="row justify-content-center">
-
-			<div class="col-12 col-md-10 col-lg-8">
-				<form class="card card-sm" [formGroup]="formGroup"
-					(ngSubmit)="onSubmitAssisted(formGroup.value); findImages(formGroup.value)" autocomplete="off">
-					<!------------------------- Disable Autocomplete -------------------------->
-					<input autocomplete="false" name="hidden" type="text" style="display:none;">
-					<!------------------------------------------------------------------------->
-					<div class="card-body row no-gutters align-items-center">
-						<div class="col-auto">
-							<i class="fas fa-search"></i>
-						</div>
-						<div class="col">
-							<input class="form-control form-control-lg form-control-borderless" type="text" id="query"
-								placeholder="Enter any statistcal query" formControlName="query" spellcheck="false">
-						</div>
-						<div class="col-auto">
-							<button class="btn btn-lg btn-success" type="submit" (click)="activate = true; "
-								style="background-color: #22a0e9;">Search</button>
-							<!--<button class="btn btn-lg btn-success" type="submit" (click) = "findImages(formGroup.value); activate = true">Search</button> -->
-						</div>
-					</div>
-				</form>
+	<form [formGroup]="formGroup" (ngSubmit)="onSubmitAssisted(formGroup.value); findImages(formGroup.value)"
+		autocomplete="off">
+		<!------------------------- Disable Autocomplete -------------------------->
+		<input autocomplete="false" name="hidden" type="text" style="display:none;">
+		<!------------------------------------------------------------------------->
+		<div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+			<div class="input-group">
+				<input type="text" placeholder="What're you searching for?" aria-describedby="button-addon1"
+					class="form-control border-0 bg-light form-control-lg" formControlName="query" id="query"
+					spellcheck="false">
+				<div class="input-group-append">
+					<button id="button-addon1" type="submit" class="btn btn-link text-primary"
+						(click)="activate = true;"><i class="fa fa-search fa-lg"></i></button>
+					<!--<button class="btn btn-lg btn-success" type="submit" (click) = "findImages(formGroup.value); activate = true">Search</button> -->
+				</div>
 			</div>
 		</div>
-		<br>
-	</div>
+	</form>
+
 </div>
 
 <!--
@@ -157,60 +154,47 @@
 
 <br>
 
-<div *ngIf="response_table[0]!='NONE' && response_table.length > 0 && activate" class="jumbotron text-center">
-	<h1 class="row justify-content-center">SmartQuery Engine</h1>
+<div *ngIf="response_table[0]!='NONE' && response_table.length > 0 && activate" class="container">
+	<!-- For demo purpose -->
+	<div class="row py-5">
+		<div class="col-lg-9 mx-auto text-white text-center">
+			<h1 class="display-4 text-dark">SmartQuery Engine</h1>
+			<p class="lead mb-0 text-dark">Generate Data Visualizations from Natural Language Queries</p>
+		</div>
+	</div>
+	<!-- End -->
 
-
-	<div class="container mt-5">
-		<div class="row justify-content-center">
-
-			<div class="col-12 col-md-10 col-lg-8">
-				<form class="card card-sm" [formGroup]="formGroup2" (ngSubmit)="onSubmitAnalysis(formGroup2.value)"
-					autocomplete="off">
-					<!------------------------- Disable Autocomplete -------------------------->
-					<input autocomplete="false" name="hidden" type="text" style="display:none;">
-					<!------------------------------------------------------------------------->
-					<div class="card-body row no-gutters align-items-center">
-						<div class="col-auto">
-							<i class="fas fa-chart-pie"></i>
-						</div>
-						<div class="col">
-							<input class="form-control form-control-lg form-control-borderless" type="text" id="query2"
-								placeholder="Enter any statistcal query" formControlName="query2" spellcheck="false">
-						</div>
-						<div class="col-auto">
-							<button class="btn btn-lg btn-success" type="submit"
-								(click)="visualization = true;">Visualize</button>
-							<!--<button class="btn btn-lg btn-success" type="submit" (click) = "findImages(formGroup.value); activate = true">Search</button> -->
-						</div>
-					</div>
-				</form>
+	<form [formGroup]="formGroup2" (ngSubmit)="onSubmitAnalysis(formGroup2.value)" autocomplete="off">
+		<!------------------------- Disable Autocomplete -------------------------->
+		<input autocomplete="false" name="hidden" type="text" style="display:none;">
+		<!------------------------------------------------------------------------->
+		<div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+			<div class="input-group">
+				<input type="text" placeholder="What're you searching for?" aria-describedby="button-addon1"
+					class="form-control border-0 bg-light form-control-lg" formControlName="query2" id="query2"
+					spellcheck="false">
+				<div class="input-group-append">
+					<button id="button-addon2" type="submit" class="btn btn-link text-primary"
+						(click)="visualization = true;"><i class="fa fa-chart-pie fa-lg"></i></button>
+					<!--<button class="btn btn-lg btn-success" type="submit" (click) = "findImages(formGroup.value); activate = true">Search</button> -->
+				</div>
 			</div>
 		</div>
-		<br>
-	</div>
+		<br><br><br>
+	</form>
 </div>
 
 
 <div *ngIf="showVisBox == true && response_table[0]!='NONE' && response_table.length > 0 && activate"
-	class="small-container">
-	<div class="card">
-		<div class="card-body">
-			<div class="d-flex justify-content-between">
-				<h4 class="card-title text-center">Relevant Data Visualization</h4>
-			</div>
-			<div *ngIf="isThereAGraph" class="alert alert-success alert-dismissible fade show" role="alert">
-				<strong>Success</strong>, we found data that may be related to your search!
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div id="vis"></div>
-		</div>
-	</div>
+	class="container d-flex justify-content-center">
+	<div id="vis"></div>
 </div>
 
-<br>
+<br><br><br><br><br>
+
+<div *ngIf="showVisBox == false && response_table[0]!='NONE' && response_table.length > 0 && activate">
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
 
 <div *ngIf="showVisBox == true && response_table[0]!='NONE' && response_table.length > 0 && activate" class="container">
 	<hr>
