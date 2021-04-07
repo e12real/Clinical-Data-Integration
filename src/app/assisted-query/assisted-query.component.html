@@ -35,6 +35,11 @@
 
 <!--
 <div *ngIf="activate" class="container-lg m-5" style="background:#F9F9F9">
+<div style="width: 100%;">
+
+
+<div *ngIf="activate" class="container-lg m-3" style="background:#F9F9F9; width: 50%">
+
     <h3 class="text-left pt-3">Query Result:</h3>
 	<p class="text-left pb-1">Tables related to your search:</p>
 	<div class="container">
@@ -48,7 +53,7 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>Percentage of patients who have more than 5 cavities</td>
+						<td>{{latestQuery}}</td>
 						<td>15.6%</td>
 					</tr>
 				</tbody>
@@ -57,6 +62,32 @@
 	</div>
 </div>
 -->
+
+<div *ngIf="activate" style="margin-left: 55%; width: 50%;">
+	<h3 class="text-left pt-3">Query History:</h3>
+	<p class="text-left pb-1">Click on a query to go back to a previous result:</p>
+	<div class="container">
+		<div class="row justify-content-center">
+			<table class="styled-table" *ngIf="activate">
+				<thead>
+					<tr>
+						<th>Query History</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<div *ngFor = "let q of queries; index as i">
+							<td (click) = "update2(q); findImages2(q); onSubmit2(q); activate = true">{{q}}</td>
+						</div>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+</div>
+
+
 <div *ngIf="response_table[0]!='NONE' && response_table.length > 0 && activate" class="wide-container">
 	<div class="card">
 		<div class="card-body">
@@ -104,9 +135,12 @@
 				</tbody>
 			</table>
 		</div>
+
 	</div>
 </div>
 
+
+<div *ngIf="images.length > 0" class="container-lg m-3" style="background:#F9F9F9; width: 50%">
 
 <div *ngIf="images.length > 0" class="container-lg m-5" style="background:#F9F9F9">
 	<h3 class="text-left pt-3">Associated Images</h3>

@@ -49,7 +49,7 @@ import { PatientProfileComponent } from './patient-profile/patient-profile.compo
     BrowserAnimationsModule,
     DataTablesModule,
   ],
-  providers: [TagService],
+  providers: [TagService, NavListComponent],
   bootstrap: [
     AppComponent,
     LoginComponent

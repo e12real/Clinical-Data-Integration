@@ -22,6 +22,9 @@ export class AssistedQueryComponent implements OnInit {
   visualization: boolean = false;
   images: string[] = [];
 
+  queries: string[] = [];
+  latestQuery: string;
+
   getimageurl: string = "http://sdpimageapi.azurewebsites.net/file/";
   httpClient: any;
   response_table: string[] = [];
@@ -40,9 +43,8 @@ export class AssistedQueryComponent implements OnInit {
     );
   }
 
-  findImages(formData: { [x: string]: any }) {
-
-    this.dataService.getNLImageQuery(formData).pipe(takeUntil(this.destroy$)).subscribe(
+  findImages(formData: { [x: string]: any }) {    
+    this.dataService.getNLImageQuery(formData["query"]).pipe(takeUntil(this.destroy$)).subscribe(
       (data: any) => {
         this.images = [];
         console.log(data)
@@ -51,6 +53,11 @@ export class AssistedQueryComponent implements OnInit {
         }
       }
     );
+  }
+
+  update(formData: { [x: string]: any }) {
+    this.queries.push(formData["query"]);
+    this.latestQuery = formData["query"];
   }
 
   onSubmit(formData: { [x: string]: any }) {
@@ -101,7 +108,41 @@ export class AssistedQueryComponent implements OnInit {
           embed("#vis", spec, { actions: false });
         }
       });
+  }  
+  
+
+  update2(query: string) {
+    this.queries.push(query);
+    this.latestQuery = query;
   }
+
+  findImages2(query: string) {
+    
+    this.dataService.getNLImageQuery(query).pipe(takeUntil(this.destroy$)).subscribe(
+      (data: any) => {
+        this.images = [];
+        console.log(data)
+        for(var i = 0; i < data.length; i++) {
+          this.images.push(data[i])
+        }
+      }
+    );
+  }
+
+  onSubmit2(query: string) {
+    this.http
+      .get("http://localhost:5000/graph", {
+        params: {
+          query
+        }
+      })
+      .subscribe(data => {
+        let spec = data[0];
+        console.log(spec);
+        embed("#vis", spec, { actions: false });
+      });
+  }
+
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder, private dataService: DataService, private renderer: Renderer2) {
     this.formGroup = this.formBuilder.group({
