@@ -25,7 +25,7 @@ export class AssistedQueryComponent implements OnInit {
   queries: string[] = [];
   latestQuery: string;
 
-  getimageurl: string = "http://sdpimageapi.azurewebsites.net/file/";
+  getimageurl: string = "http://sdp2.cse.uconn.edu:5054/file/";
   httpClient: any;
   response_table: string[] = [];
   vis_activate : boolean = false;
