@@ -51,8 +51,6 @@ export class UploadDataComponent implements OnInit {
     const uploadData = new FormData();
     uploadData.append("image", this.selectedFile, this.selectedFile.name);
 
-    this.tags.push({ name: "Angular", backgroundColor: "#868E96", color: "#FFFFFF" });
-
     console.log(this.tags)
 
     this.http
