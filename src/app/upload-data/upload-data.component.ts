@@ -51,12 +51,10 @@ export class UploadDataComponent implements OnInit {
     const uploadData = new FormData();
     uploadData.append("image", this.selectedFile, this.selectedFile.name);
 
-    this.tags.push({ name: "Angular", backgroundColor: "#868E96", color: "#FFFFFF" });
-
     console.log(this.tags)
 
     this.http
-      .post("http://127.0.0.1:5000/classify", uploadData)
+      .post("http://sdp2.cse.uconn.edu:5054/classify", uploadData)
       .subscribe((data: string[]) => {
         console.log(data); // handle event here
         for (var i = 0; i < data.length; i++) {

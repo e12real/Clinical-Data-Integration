@@ -11,7 +11,7 @@ export class DataService {
 
   readonly RPKI_API = 'https://a314e36a-1f9d-4e75-bd5e-0ee22211cb34.mock.pstmn.io';
 
-  readonly RPKI_API_M = 'https://sdpimageapi.azurewebsites.net/';
+  readonly RPKI_API_M = 'http://sdp2.cse.uconn.edu:5054/';
 
   readonly RPKI_API_J = 'https://sdp2.cse.uconn.edu:8080';
   
