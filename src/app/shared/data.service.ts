@@ -22,6 +22,7 @@ export class DataService {
   permission: boolean = false;
   activate: boolean = false;
   response_table: string[] = []
+  assisted_quer_sql = "";
   //readonly RPKI_API_P = '';
 
   constructor(private httpClient: HttpClient) { }

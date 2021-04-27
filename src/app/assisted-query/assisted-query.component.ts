@@ -75,6 +75,7 @@ export class AssistedQueryComponent implements OnInit {
       });
   }
   onSubmitAssisted(formData: { [x: string]: any }) {
+    this.update2(formData["query"]);
     this.dataService.sendAssisted(formData["query"]).pipe(takeUntil(this.destroy$)).subscribe(
       (data: any) => {
         console.log(data['Data'])
@@ -143,17 +144,26 @@ export class AssistedQueryComponent implements OnInit {
   }
 
   onSubmit2(query: string) {
-    this.http
-      .get("http://localhost:5000/graph", {
-        params: {
-          query
+    this.dataService.sendAssisted(query).pipe(takeUntil(this.destroy$)).subscribe(
+      (data: any) => {
+        console.log(data['Data'])
+        if (data['Data'] == 'NONE') {
+          this.response_table[0] = "NONE";
         }
-      })
-      .subscribe(data => {
-        let spec = data[0];
-        console.log(spec);
-        embed("#vis", spec, { actions: false });
-      });
+        else {
+          this.response_table = data['Data'];
+          this.sql_statement = data['SQL'];
+          for (let i = 0; i < this.response_table.length; i++) {
+            var str: string = this.response_table[i];
+            this.response_table[i] = (str).toString().replace(/,/g, " ")
+          }
+          console.log(this.response_table[0]);
+          console.log(this.response_table.length);
+          console.log(this.activate);
+         
+        }
+      }
+    );
   }
 
 
@@ -179,6 +189,7 @@ export class AssistedQueryComponent implements OnInit {
     };
     if(this.dataService.response_table.length != 0){
       this.activate = true;
+      this.response_table = this.dataService.response_table;
     }
     
   }
