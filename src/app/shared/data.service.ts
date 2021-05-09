@@ -9,18 +9,20 @@ import { retry, catchError } from 'rxjs/operators';
 })
 export class DataService {
 
-  readonly RPKI_API = 'https://a314e36a-1f9d-4e75-bd5e-0ee22211cb34.mock.pstmn.io';
+  readonly RPKI_API = 'http://localhost:5000';
 
-  readonly RPKI_API_M = 'http://sdp2.cse.uconn.edu:5054/';
+  readonly RPKI_API_M = 'http://localhost:5054';
 
-  readonly RPKI_API_J = 'https://sdp2.cse.uconn.edu:8080';
+  readonly RPKI_API_J = 'http://localhost:8080';
   
-
+  assisted_query_pre = "";
+  assisted_query_post = "";
   validEmails: string[] = ["eric.hilhorst@uconn.edu"];
   validPasswords: string[] = ["test"];
   permission: boolean = false;
   activate: boolean = false;
-
+  response_table: string[] = []
+  assisted_quer_sql = "";
   //readonly RPKI_API_P = '';
 
   constructor(private httpClient: HttpClient) { }
